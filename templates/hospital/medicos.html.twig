@@ -1,0 +1,28 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container text-center">
+        <h2>Cuadro médico: {{especialidad.nombre}}</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"><strong>Categoria</strong></th>
+                    <th scope="col"><strong>Especialidad</strong></th>
+                    <th scope="col"><strong>Medico</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                      {% for medico in medicos %}
+                        <tr>
+                            <td>{{ especialidad.categoria}}</td>
+                            <td>{{ especialidad.nombre}}</td>
+                            <td>{{ medico.nombre }} {{ medico.apellido }}</td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+            </table>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section id="billboard" class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="section-title text-center mt-4" data-aos="fade-up">Hospital José Planes</h1>
+            <h3 class="text-center">Fisioterapia deportiva</h3>
+        </div>
+        <div class="row">
+            <div class="swiper main-swiper py-4" data-aos="fade-up" data-aos-delay="600">
+                <div class="swiper-wrapper d-flex border-animation-left">
+                    <div class="swiper-slide">
+                        <div class="banner-item image-zoom-effect">
+                            <div class="image-holder">
+                            <a href="{{path ('app_cuadro_medico')}}">
+                                <img src="images/imageFreepik1.jpg" alt="product" class="img-fluid">
+                            </a>
+                            </div>
+                            <div class="banner-content py-4">
+                            <h5 class="element-title text-uppercase">
+                                <a href="{{path ('app_cuadro_medico')}}" class="item-anchor">Cuadro medico</a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="banner-item image-zoom-effect">
+                        <div class="image-holder">
+                        <a href="{{path ('app_servicios')}}">
+                            <img src="images/imageFreepik2.jpg" alt="product" class="img-fluid">
+                        </a>
+                        </div>
+                        <div class="banner-content py-4">
+                        <h5 class="element-title text-uppercase">
+                            <a href="{{path ('app_servicios')}}" class="item-anchor">Servicios</a>
+                        </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                <div class="banner-item image-zoom-effect">
+                    <div class="image-holder">
+                    <a href="{{path ('app_cita_previa')}}">
+                        <img src="images/imageFreepik3.jpg" alt="product" class="img-fluid">
+                    </a>
+                    </div>
+                    <div class="banner-content py-4">
+                    <h5 class="element-title text-uppercase">
+                        <a href="{{path ('app_cita_previa')}}" class="item-anchor">Cita previa</a>
+                    </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-light py-5">
+    <div class="container">
+        <h2>Ofrecemos una variedad de servicios especializados de Fisioterapia</h2>
+        <p>En nuestro centro de Murcia, nuestros fisioterapeutas son expertos en fisioterapia del deporte, recuperación y prevención de lesión. Disponemos de una unidad especializada en espalda tratando todo tipo de dolores y patologías asociadas.</p>
+        <a href="{{path('app_servicios')}}" class="btn btn-dark rounded-pill px-5">Descubre más</a>
+    </div>
+</section>
+{% endblock %}

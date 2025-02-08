@@ -1,0 +1,15 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+
+    {% block body %}
+        <section class="bg-white py-5 text-center">
+        <h2>Nueva cita previa</h2>
+            <div class="container justify-content-start">
+                {{ include('citas/_form.html.twig') }}
+            <br>
+           </div>
+        </section>
+    {% endblock %}
+
+{% endblock %}

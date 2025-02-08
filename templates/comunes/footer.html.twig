@@ -1,0 +1,97 @@
+{# templates/footer.html.twig #}
+<footer id="footer" class="mt-5 border-top">
+<div class="container">
+    <div class="row d-flex flex-wrap justify-content-between py-5">
+    <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-001">
+        <div class="footer-intro mb-4">
+            <a href="{{path ('app_hospital')}}">
+            <h4>Hospital José Planes</h4>
+            </a>
+        </div>
+        <p>Calle Romero 70, Murcia</p>
+        <div class="social-links">
+            <ul class="list-unstyled d-flex flex-wrap gap-3">
+            <li>
+                <a href="#" class="text-secondary">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#facebook"></use>
+                </svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-secondary">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#twitter"></use>
+                </svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-secondary">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#youtube"></use>
+                </svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-secondary">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#pinterest"></use>
+                </svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-secondary">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#instagram"></use>
+                </svg>
+                </a>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-5 col-sm-6">
+        <div class="footer-menu footer-menu-002">
+    
+        <table class="text-start">
+            {% set fila = null %}
+            {% for footer in footers %}
+                {% if fila != footer.fila %}
+                    {% if fila is not null %} 
+                    </tr> 
+                    {% endif %}
+                    <tr>
+                    {% set fila = footer.fila %}
+                {% endif %}
+                <td class="p-2">
+                    <a class="item-anchor" href="{{ footer.enlace }}">{{ footer.titulo }}</a>
+                </td>
+            {% endfor %}
+            </tr>
+        </table> 
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-004 border-animation-left">
+        <h5 class="widget-title text-uppercase mb-4">Contacto</h5>
+        <p>¿Tienes alguna sugerencia? Escribenos: <a href="mailto:info@hospitaljoseplanes.com"
+            class="item-anchor">info@hospitaljoseplanes.com</a></p>
+        <p>¿Necesitas ayuda? Llamanos:  <a href="tel:+43 720 11 52 78" class="item-anchor">+34 666 666 666</a>
+        </p>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="border-top py-4">
+    <div class="container">
+    <div class="row justify-content-end">
+        <div class="col-md-6 text-end">
+        <p>© Copyright 2022 Nina. Plantilla <a href="https://templatesjungle.com"
+            target="_blank">TemplatesJungle </a> Distribution By <a href="https://themewagon.com"
+            target="blank">ThemeWagon</a></p>
+        </div>
+    </div>
+    </div>
+</div>
+</footer>
