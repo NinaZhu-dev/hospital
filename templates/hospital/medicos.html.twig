@@ -2,10 +2,10 @@
 
 {% block contenido %}
 <section class="bg-white py-5">
-    <div class="container text-center">
+    <div class="container">
         <h2>Cuadro médico: {{especialidad.nombre}}</h2>
 
-        <table class="table">
+        <table class="table  text-center">
             <thead>
                 <tr>
                     <th scope="col"><strong>Categoria</strong></th>
@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                       {% for medico in medicos %}
-                        <tr>
+                        <tr class="text-black">
                             <td>{{ especialidad.categoria}}</td>
                             <td>{{ especialidad.nombre}}</td>
                             <td>{{ medico.nombre }} {{ medico.apellido }}</td>

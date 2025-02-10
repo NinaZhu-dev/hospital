@@ -2,10 +2,10 @@
 
 {% block contenido %}
 <section class="bg-white py-5">
-    <div class="container text-center">
+    <div class="container">
         <h2>Cuadro médico:</h2>
 
-        <table class="table">
+        <table class="table text-center">
             <thead>
                 <tr>
                     <th scope="col"><strong>Categoria</strong></th>
@@ -13,13 +13,30 @@
                 </tr>
             </thead>
             <tbody>
+                    {% set categoria_actual = null %}
+                    {% set rowspan = 0 %}
                       {% for especialidad in especialidades %}
-                        <tr>
-                            <td>{{ especialidad.categoria}}</td>
-                            <td>
-                                <a href="{{ path('app_medico_especialidad', { id: especialidad.id }) }}">{{ especialidad.nombre }}</a>
-                            </td>
-                        </tr>
+
+                        {% if categoria_actual != especialidad.categoria %}
+                            {% set rowspan = categorias[especialidad.categoria] %}
+                            <tr>
+                                <td class="text-black align-content-center" rowspan="{{ rowspan }}">{{ especialidad.categoria}}</td>
+                                <td>
+                                    <a href="{{ path('app_medico_especialidad', { id: especialidad.id }) }}">{{ especialidad.nombre }}
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#F19E39"><path d="M522-480 333-669l51-51 240 240-240 240-51-51 189-189Z"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% set categoria_actual = especialidad.categoria %}
+                        {% else %}
+                             <tr>
+                                <td>
+                                    <a href="{{ path('app_medico_especialidad', { id: especialidad.id }) }}">{{ especialidad.nombre }}
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#F19E39"><path d="M522-480 333-669l51-51 240 240-240 240-51-51 189-189Z"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
             </tbody>
             </table>

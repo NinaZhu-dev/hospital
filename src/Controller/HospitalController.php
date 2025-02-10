@@ -37,8 +37,22 @@ final class HospitalController extends AbstractController{
             [],
             ['categoria' => 'ASC']
         );
+
+        //contar las veces que se repite una categoria
+        $categorias = [];
+        foreach ($especialidades as $especialidad){
+
+            $categoria = $especialidad->getCategoria();
+            if (!isset($categorias[$categoria])){
+                $categorias[$categoria] = 0;
+            }
+            $categorias[$categoria]++;
+
+        }
+
         return $this->render('hospital/cuadroMedico.html.twig',[
-            'especialidades' => $especialidades
+            'especialidades' => $especialidades,
+            'categorias' => $categorias
         ]);
     }
 

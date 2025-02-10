@@ -1,15 +1,15 @@
 {% extends 'comunes/default.html.twig' %}
 
 {% block contenido %}
-
-    {% block body %}
-        <section class="bg-white py-5 text-center">
-        <h2>Inscripción oferta de empleo:</h2>
-            <div class="container justify-content-start">
-                {{ include('bolsa_empleo/_form.html.twig') }}
-            <br>
-           </div>
-        </section>
-    {% endblock %}
+    <section class="bg-white py-5">
+        <div class="container text-black">
+            <h2>Inscripción oferta de empleo:</h2>
+                <div class="container justify-content-start">
+                    {{ include('bolsa_empleo/_form.html.twig') }}
+                <br>
+                </div>
+        </div>
+    </section>
+    
 
 {% endblock %}

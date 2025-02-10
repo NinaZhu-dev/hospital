@@ -5,8 +5,8 @@ INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Servicios', '/servicio
 INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Encuestas', '/encuestas', '4');
 INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Cita previa', '/cita_previa', '5');
 INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Bolsa trabajo', '/bolsa_trabajo', '6');
-INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Iniciar sesión', '/iniciar_sesion', '7');
-INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Cerrar sesión', '/cerrar_sesion', '8');
+INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Iniciar sesión', '', '7');
+INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Cerrar sesión', '', '8');
 
 
 INSERT INTO `footer` (`titulo`, `enlace`, `fila`, `columna` ) VALUES ('Inicio', '/', '1', '1');
@@ -156,3 +156,9 @@ INSERT INTO `puesto_trabajo` (`nombre`, `activo`) VALUES
 ('Entrenador en Prevención de Lesiones', 1),
 ('Fisioterapeuta General', 1);
 
+
+// Usuarios
+INSERT INTO `user` (`email`, `roles`, `password`) VALUES
+('admin@admin.com', '["ROLE_ADMIN"]', 'admin'),
+('user@user.com', '["ROLE_USER"]', 'user'),
+('medico@medico.com', '["ROLE_MEDICO"]', 'medico');

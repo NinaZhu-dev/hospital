@@ -1,11 +1,11 @@
 {% extends 'comunes/default.html.twig' %}
 
 {% block contenido %}
-<section class="bg-white py-5 text-center">
+<section class="bg-white py-5">
     <div class="container">
         <h2>Servicios fisioterapia deportiva:</h2>
 
-            <table class="table">
+            <table class="table text-center text-black">
             <thead>
                 <tr>
                     <th scope="col"><strong>Servicio</strong></th>
@@ -15,7 +15,7 @@
             <tbody>
                 <tr>
                     {% for servicio in servicios %}
-                        {% set medicosServicio = medicos[servicio.id] ?? [] %} {# Si no hay médicos, asignamos un array vacío #}
+                        {% set medicosServicio = medicos[servicio.id] ?? [] %} {# Si no hay médicos, sin asignar #}
                         {% if medicosServicio is empty %}
                             <tr>
                                 <td>{{ servicio.nombre }}</td>

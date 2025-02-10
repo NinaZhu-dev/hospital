@@ -37,12 +37,12 @@
                     {% if not app.user %}
                         <!-- Mostrar solo si el usuario NO ha iniciado sesión -->
                         <li class="nav-item">
-                                <a class="btn btn-light rounded-pill nav-link" href="/iniciar_sesion">Iniciar sesión</a>
+                                <a class="btn btn-light rounded-pill nav-link" href="/login">Iniciar sesión</a>
                         </li>
                     {% else %}
                         <!-- Mostrar solo si el usuario SÍ ha iniciado sesión -->
                         <li class="nav-item">
-                                <a class="btn btn-warning rounded-pill nav-link" href="/cerrar_sesion">Cerrar sesión</a>
+                                <a class="btn btn-warning rounded-pill nav-link" href="/logout">Cerrar sesión</a>
                         </li>
                     {% endif %}
                 </ul>
