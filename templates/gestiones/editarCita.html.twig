@@ -1,0 +1,11 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container text-black">
+        <h2>Editar cita: {{cita.id}} - {{cita.nombre}}</h2>
+        {% include 'comunes/_mensajes.html.twig' %}
+        {{ include('comunes/_form.html.twig', {'button_label': 'Actualizar'}) }}
+
+
+{% endblock %}

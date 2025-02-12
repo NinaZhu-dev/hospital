@@ -1,0 +1,46 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container">
+        <div class="row">
+            <h2>Area privada</h2>
+            <div class="col-md-12 text-center" data-aos="fade-in" data-aos-delay="0">
+                <div class="py-5 d-flex justify-content-center gap-3">
+                    <a href="{{ path('app_mi_perfil') }}">
+                        <img src="images/mi_perfil.png" alt="mi_perfil" class="w-25">
+                        <h4 class="element-title text-capitalize my-3">Mi perfil</h4>
+                    </a>
+                    <a href="">
+                        <img src="images/ajustes.png" alt="ajustes" class="w-25">
+                        <h4 class="element-title text-capitalize my-3">Ajustes</h4>
+                    </a>
+                </div>
+            </div>
+            <h2>Otras gestiones:</h2>
+            <div class="col-md-12 text-center" data-aos="fade-in" data-aos-delay="0">
+                <div class="py-5 d-flex justify-content-center gap-3">
+                    <a href="{{ path('app_listado_usuarios') }}">
+                        <img src="images/listado_usuarios.png" alt="listado_usuarios" class="w-25">
+                        <h4 class="element-title text-capitalize my-3">Listado usuarios</h4>
+                    </a>
+                    <a href="{{ path('app_nuevo_usuario') }}">
+                        <img src="images/nuevo_usuario.png" alt="nuevo_usuario" class="w-25">
+                        <h4 class="element-title text-capitalize my-3">Crear usuario</h4>
+                    </a>
+                </div>
+                <div class="py-5 d-flex justify-content-center gap-3">
+                    <a href="{{ path('app_listado_citas') }}">
+                        <img src="images/cita_medica.png" alt="cita_medica" class="w-25">
+                        <h4 class="element-title text-capitalize my-3">Gestionar citas pendientes</h4>
+                    </a>
+                    <a href="{{ path('app_listado_empleos') }}">
+                        <img src="images/bolsa_trabajo.png" alt="bolsa_trabajo" class="w-25">
+                        <h4 class="element-title text-capitalize my-3">Gestionar bolsa trabajo</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +32,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Respuestas>
+     */
+    #[ORM\OneToMany(targetEntity: Respuestas::class, mappedBy: 'usuario')]
+    private Collection $respuestas;
+
+    public function __construct()
+    {
+        $this->respuestas = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,5 +116,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Respuestas>
+     */
+    public function getRespuestas(): Collection
+    {
+        return $this->respuestas;
+    }
+
+    public function addRespuesta(Respuestas $respuesta): static
+    {
+        if (!$this->respuestas->contains($respuesta)) {
+            $this->respuestas->add($respuesta);
+            $respuesta->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRespuesta(Respuestas $respuesta): static
+    {
+        if ($this->respuestas->removeElement($respuesta)) {
+            // set the owning side to null (unless already changed)
+            if ($respuesta->getUsuario() === $this) {
+                $respuesta->setUsuario(null);
+            }
+        }
+
+        return $this;
     }
 }

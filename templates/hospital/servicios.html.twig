@@ -9,28 +9,19 @@
             <thead>
                 <tr>
                     <th scope="col"><strong>Servicio</strong></th>
-                    <th scope="col"><strong>Medico</strong></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     {% for servicio in servicios %}
-                        {% set medicosServicio = medicos[servicio.id] ?? [] %} {# Si no hay médicos, sin asignar #}
-                        {% if medicosServicio is empty %}
-                            <tr>
-                                <td>{{ servicio.nombre }}</td>
-                                <td><i>Sin asignar</i></td>
-                            </tr>
-                        {% else %}
-                            {% for medico in medicosServicio %}
-                                <tr>
-                                    {% if loop.first %}
-                                        <td rowspan="{{ medicosServicio|length }}">{{ servicio.nombre }}</td>
-                                    {% endif %}
-                                    <td>{{ medico.nombre }} {{ medico.apellido }}</td>
-                                </tr>
-                            {% endfor %}
-                        {% endif %}
+                        <tr>
+                            <td>
+                                <a href=" ">
+                                {{ servicio.nombre }}
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#F19E39"><path d="M522-480 333-669l51-51 240 240-240 240-51-51 189-189Z"/></svg>
+                                </a>
+                            </td>
+                        </tr>
                     {% endfor %}
             </tbody>
             </table>

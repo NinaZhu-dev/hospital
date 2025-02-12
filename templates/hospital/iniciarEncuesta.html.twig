@@ -1,0 +1,57 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 class="mb-4 text-center">{{ encuesta.nombre }}</h2>
+
+                <form id="form" action="{{ path('app_encuesta_enviada', { id: encuesta.id }) }}" method="POST"  class="text-black">
+                    <!-- Fecha de la Encuesta -->
+                    <div class="mb-4">
+                        <label for="fechaActual" class="form-label fw-bold">Fecha Actual:</label>
+                        <input type="date" class="form-control" id="fechaActual" name="fechaActual" required>
+                    </div>
+
+                    <!-- Iterar sobre las preguntas -->
+                    {% for pregunta in preguntas %}
+                        <div class="form-group mb-4 p-3 border rounded">
+                            <p class="fw-bold">{{ pregunta.titulo }}</p>
+
+                            {% if pregunta.tipo == 'texto' %}
+                                <textarea name="pregunta_{{ pregunta.id }}" id="pregunta_{{ pregunta.id }}" class="form-control form-control-lg"></textarea>
+
+                            {% elseif pregunta.tipo == 'valoracion' %}
+                                <select name="pregunta_{{ pregunta.id }}" class="form-select" required>
+                                    <option selected disabled>Elige una opción:</option>
+                                    <option value="5">Muy Buena</option>
+                                    <option value="4">Buena</option>
+                                    <option value="3">Regular</option>
+                                    <option value="2">Mala</option>
+                                    <option value="1">Muy Mala</option>
+                                </select>
+
+                            {% elseif pregunta.tipo == 'booleano' %}
+                                <div class="d-flex gap-3">
+                                    <div class="px-4 form-check">
+                                        <input type="radio" name="pregunta_{{ pregunta.id }}" value="SI" class="form-check-input" id="pregunta_{{ pregunta.id }}_si" required>
+                                        <label class="form-check-label" for="pregunta_{{ pregunta.id }}_si">Sí</label>
+                                    </div>
+                                    <div class="px-2 form-check">
+                                        <input type="radio" name="pregunta_{{ pregunta.id }}" value="NO" class="form-check-input" id="pregunta_{{ pregunta.id }}_no" required>
+                                        <label class="form-check-label" for="pregunta_{{ pregunta.id }}_no">No</label>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success rounded-pill px-5 fw-bold">Enviar Encuesta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

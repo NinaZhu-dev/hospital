@@ -1,0 +1,34 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container">
+        <h2>Listado empleos solicitados:</h2>
+        {% include 'comunes/_mensajes.html.twig' %}
+             <table class="table text-center text-black">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Puesto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for empleo in empleos %}
+                    <tr>
+                        <td>{{ empleo.id }}</td>
+                        <td>{{ empleo.nombre }}</td>
+                        <td>{{ empleo.telefono}}</td>
+                        <td>{{ empleo.email}}</td>
+                        <td>{{ empleo.puesto.nombre}}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Sin resultados</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}

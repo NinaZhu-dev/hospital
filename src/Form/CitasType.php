@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class CitasType extends AbstractType
 {
@@ -31,12 +33,30 @@ class CitasType extends AbstractType
                 'choice_label' => 'nombre',
             ])
         ;
+
+        //si la cita es editada añadir el atributo gestionada y la fecha de la cita
+        if ($options['is_edit']) {
+            
+            $builder
+                ->add('gestionada', CheckboxType::class, [
+                    'required' => false,
+                    'label' => '¿Cita gestionada?',
+                    'attr' => ['class' => 'form-check-input']
+                ])
+                ->add('fechaCita', DateType::class, [
+                    'widget' => 'single_text',
+                    'attr' => ['class' => 'form-control']
+                ]);
+        }
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Citas::class,
+            'is_edit' => false
         ]);
     }
 }

@@ -1,0 +1,39 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container">
+        <h2>Listado citas sin gestionar:</h2>
+        {% include 'comunes/_mensajes.html.twig' %}
+             <table class="table text-center text-black">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Observaciones</th>
+                        <th scope="col">Especialidad</th>
+                        <th scope="col">Gestionada</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cita in citas %}
+                    <tr>
+                        <td>{{ cita.nombre }}</td>
+                        <td>{{ cita.telefono}}</td>
+                        <td>{{ cita.email}}</td>
+                        <td>{{ cita.observaciones}}</td>
+                         <td>{{ cita.especialidad.nombre }}</td>
+                        <td colspan="2">
+                            <a class="btn btn-light rounded-pill px-5" href="{{ path('app_editar_cita', {'id': cita.id}) }}">Editar</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Sin resultados</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}

@@ -27,7 +27,7 @@
                 <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
                     {% for menu in menus %}
 
-                        {% if menu.titulo != 'Iniciar sesión' and menu.titulo != 'Cerrar sesión' %}
+                        {% if menu.titulo != 'Iniciar sesión' and menu.titulo != 'Cerrar sesión' and menu.titulo != 'Mi perfil'%}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ menu.enlace }}">{{ menu.titulo }}</a>
                             </li>
@@ -36,14 +36,32 @@
                     {% endfor %}
                     {% if not app.user %}
                         <!-- Mostrar solo si el usuario NO ha iniciado sesión -->
-                        <li class="nav-item">
-                                <a class="btn btn-light rounded-pill nav-link" href="/login">Iniciar sesión</a>
-                        </li>
+                        {% for menu in menus %}
+                          {% if menu.titulo == 'Iniciar sesión'%}
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ menu.enlace }}">{{ menu.titulo }}</a>
+                              </li>
+                          {% endif %}
+                        {% endfor %}
                     {% else %}
-                        <!-- Mostrar solo si el usuario SÍ ha iniciado sesión -->
-                        <li class="nav-item">
-                                <a class="btn btn-warning rounded-pill nav-link" href="/logout">Cerrar sesión</a>
-                        </li>
+                        <!-- Mostrar solo si el usuario SÍ ha iniciado sesión, mostrar el área privada -->
+                        {% set posicionCerrarSesion = 0 %}
+                          {% for menu in menus %}
+                            {% if menu.titulo == 'Cerrar sesión' %}
+                                {% set posicionCerrarSesion = loop.index0 %}
+                            {% endif %}
+                          {% endfor %}
+                          <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle active" href="#" id="dropdownHome" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Area privada</a>
+                            <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownHome">
+                            {% for i in posicionCerrarSesion..menus|length-1 %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ menus[i].enlace }}">{{ menus[i].titulo }}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </li>                      
                     {% endif %}
                 </ul>
             </div>

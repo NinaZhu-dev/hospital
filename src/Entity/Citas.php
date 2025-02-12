@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CitasRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CitasRepository::class)]
@@ -34,6 +35,12 @@ class Citas
 
     #[ORM\Column(length: 255)]
     private ?string $observaciones = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $gestionada = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $fechaCita = null;
 
     public function getId(): ?int
     {
@@ -120,6 +127,30 @@ class Citas
     public function setObservaciones(string $observaciones): static
     {
         $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    public function isGestionada(): ?bool
+    {
+        return $this->gestionada;
+    }
+
+    public function setGestionada(?bool $gestionada): static
+    {
+        $this->gestionada = $gestionada;
+
+        return $this;
+    }
+
+    public function getFechaCita(): ?\DateTimeInterface
+    {
+        return $this->fechaCita;
+    }
+
+    public function setFechaCita(?\DateTimeInterface $fechaCita): static
+    {
+        $this->fechaCita = $fechaCita;
 
         return $this;
     }

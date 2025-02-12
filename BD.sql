@@ -5,8 +5,9 @@ INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Servicios', '/servicio
 INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Encuestas', '/encuestas', '4');
 INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Cita previa', '/cita_previa', '5');
 INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Bolsa trabajo', '/bolsa_trabajo', '6');
-INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Iniciar sesión', '', '7');
-INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Cerrar sesión', '', '8');
+INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Iniciar sesión', '/login', '7');
+INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Cerrar sesión', '/logout', '8');
+INSERT INTO `menu` (`titulo`, `enlace`, `orden`) VALUES ('Mi perfil', '/gestion_usuarios', '9');
 
 
 INSERT INTO `footer` (`titulo`, `enlace`, `fila`, `columna` ) VALUES ('Inicio', '/', '1', '1');
@@ -162,3 +163,28 @@ INSERT INTO `user` (`email`, `roles`, `password`) VALUES
 ('admin@admin.com', '["ROLE_ADMIN"]', 'admin'),
 ('user@user.com', '["ROLE_USER"]', 'user'),
 ('medico@medico.com', '["ROLE_MEDICO"]', 'medico');
+
+UPDATE `user` SET `password` = '$2y$13$NUJSuvFpVgWwry7w9Bxca.lTl4fG6sf28OFlZHjS7PmspzRYtm4wO' WHERE `email` = 'admin@admin.com';
+UPDATE `user` SET `password` = '$2y$13$FO8vxjeanp5MAX2V.6EV6OWsUjLw.GPkPBceTL75xjDRuMTOCcxPe' WHERE `email` = 'user@user.com';
+UPDATE `user` SET `password` = '$2y$13$oOVXx0WCIEL3adLAWGzheeJ32.Ts/f9uEeixlLghHrVgqVxCfa2lK' WHERE `email` = 'medico@medico.com';
+
+INSERT INTO `tipo_encuesta` (`nombre`) VALUES
+('Encuesta satisfacción usuario'),
+('Encuesta calidad servicio general'),
+('Encuesta satisfacción medicos')
+
+INSERT INTO `preguntas` (`titulo`, `descripcion`, `tipo`, `valoracion`, `encuesta_id`) VALUES
+-- Preguntas para "Satisfacción usuario" (id: 1)
+('¿Cómo calificaría su experiencia con nuestro servicio?', 'Valore del 1 al 5', 'valoracion', 5, 1),
+('¿Le resultó fácil acceder a nuestros servicios?', 'Responda sí o no', 'booleano', NULL, 1),
+('¿Qué aspecto cree que podríamos mejorar?', 'Explique brevemente', 'texto', NULL, 1),
+
+-- Preguntas para "Calidad servicio general" (id: 2)
+('¿Cómo calificaría la limpieza y el ambiente de nuestras instalaciones?', 'Valore del 1 al 5', 'valoracion', 5, 2),
+('¿Recibió la información que necesitaba de manera clara?', 'Seleccione sí o no', 'booleano', NULL, 2),
+('¿Cuánto tiempo esperó para ser atendido?', 'Escriba en minutos', 'texto', NULL, 2),
+
+-- Preguntas para "Encuesta satisfacción médicos" (id: 3)
+('¿Cómo calificaría la atención del personal médico?', 'Valore del 1 al 5', 'valoracion', 5, 3),
+('¿El médico explicó claramente su diagnóstico y tratamiento?', 'Seleccione sí o no', 'booleano', NULL, 3),
+('¿Recomendaría este servicio médico a otras personas?', 'Seleccione sí o no', 'booleano', NULL, 3);

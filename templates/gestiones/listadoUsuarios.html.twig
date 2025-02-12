@@ -1,0 +1,37 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container">
+        <h2>Listado usuarios:</h2>
+             {% include 'comunes/_mensajes.html.twig' %}
+             <table class="table text-center text-black">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.id }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
+                        <td>
+                            <a class="btn btn-light rounded-pill px-3" href="{{ path('app_editar_usuario', {'id': usuario.id}) }}">Editar</a>
+                            {# <a class="btn btn-warning rounded-pill px-3" href="{{ path('app_eliminar_usuario', {'id': usuario.id}) }}">Eliminar</a> #}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Sin resultados</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-secondary rounded-pill px-5" href="{{ path('app_nuevo_usuario') }}">Nuevo usuario</a>
+{% endblock %}

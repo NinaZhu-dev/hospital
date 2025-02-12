@@ -1,0 +1,29 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container">
+        <h2>Mi perfil:</h2>
+             {% include 'comunes/_mensajes.html.twig' %}
+             <table class="table text-center text-black">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ usuario.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ usuario.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Rol</th>
+                        <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Contraseña</th>
+                        <td>**********</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-secondary rounded-pill px-3" href="{{ path('app_editar_usuario', {'id': usuario.id}) }}">Editar</a>
+{% endblock %}

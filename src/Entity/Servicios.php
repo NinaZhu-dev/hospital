@@ -19,6 +19,9 @@ class Servicios
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Especialidades $especialidad = null;
 
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $descripcion = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,4 +50,5 @@ class Servicios
 
         return $this;
     }
+
 }

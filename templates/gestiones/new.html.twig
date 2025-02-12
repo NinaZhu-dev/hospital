@@ -1,0 +1,11 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container">
+        <h2>Nuevo usuario:</h2>
+         {% include 'comunes/_mensajes.html.twig' %}
+            {{ include('user/_form.html.twig') }}
+
+
+{% endblock %}
