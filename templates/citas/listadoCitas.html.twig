@@ -13,8 +13,7 @@
                         <th scope="col">Email</th>
                         <th scope="col">Observaciones</th>
                         <th scope="col">Especialidad</th>
-                        <th scope="col">Gestionada</th>
-                        <th scope="col">Fecha</th>
+                        <th scope="col">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,8 +24,8 @@
                         <td>{{ cita.email}}</td>
                         <td>{{ cita.observaciones}}</td>
                          <td>{{ cita.especialidad.nombre }}</td>
-                        <td colspan="2">
-                            <a class="btn btn-light rounded-pill px-5" href="{{ path('app_editar_cita', {'id': cita.id}) }}">Editar</a>
+                        <td>
+                            <a class="btn btn-warning rounded-pill px-5" href="{{ path('app_editar_cita', {'id': cita.id}) }}">Editar</a>
                         </td>
                     </tr>
                 {% else %}
@@ -36,4 +35,5 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <a class="btn btn-dark rounded-pill px-5" href="/gestion_usuarios">Volver área privada</a>
 {% endblock %}

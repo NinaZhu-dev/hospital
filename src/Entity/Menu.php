@@ -22,6 +22,9 @@ class Menu
     #[ORM\Column]
     private ?int $orden = null;
 
+    #[ORM\Column]
+    private ?bool $areaPrivada = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Menu
     public function setOrden(int $orden): static
     {
         $this->orden = $orden;
+
+        return $this;
+    }
+
+    public function getAreaPrivada(): ?bool
+    {
+        return $this->areaPrivada;
+    }
+
+    public function setAreaPrivada(bool $areaPrivada): static
+    {
+        $this->areaPrivada = $areaPrivada;
 
         return $this;
     }

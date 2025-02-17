@@ -5,6 +5,7 @@
     <div class="container">
         <div class="row">
             <h2>Area privada</h2>
+            {% include 'comunes/_mensajes.html.twig' %}
             <div class="col-md-12 text-center" data-aos="fade-in" data-aos-delay="0">
                 <div class="py-5 d-flex justify-content-center gap-3">
                     <a href="{{ path('app_mi_perfil') }}">
@@ -37,6 +38,10 @@
                     <a href="{{ path('app_listado_empleos') }}">
                         <img src="images/bolsa_trabajo.png" alt="bolsa_trabajo" class="w-25">
                         <h4 class="element-title text-capitalize my-3">Gestionar bolsa trabajo</h4>
+                    </a>
+                    <a href="{{ path('app_listado_encuestas') }}">
+                        <img src="images/resultado_encuestas.png" alt="resultado_encuestas" class="w-25">
+                        <h4 class="element-title text-capitalize my-3">Resultado encuestas</h4>
                     </a>
                 </div>
             </div>

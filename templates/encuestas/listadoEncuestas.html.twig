@@ -1,0 +1,31 @@
+{% extends 'comunes/default.html.twig' %}
+
+{% block contenido %}
+<section class="bg-white py-5">
+    <div class="container">
+        <h2>Listado encuestas completadas:</h2>
+        {% include 'comunes/_mensajes.html.twig' %}
+             <table class="table text-center text-black">
+                <thead>
+                    <tr>
+                        <th scope="col">Pregunta</th>
+                        <th scope="col">Promedio Valoración</th>
+                        <th scope="col">Comentario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for encuesta in encuestas %}
+                    <tr>
+                        <td>{{ encuesta.Titulo}}</td>
+                        <td>{{ encuesta.Promedio}}</td>
+                        <td>{{ encuesta.Comentario}}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Sin resultados</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-dark rounded-pill px-5" href="/gestion_usuarios">Volver área privada</a>
+{% endblock %}

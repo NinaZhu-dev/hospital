@@ -18,7 +18,7 @@ final class UserController extends AbstractController{
     #[Route('/gestion_usuarios', name: 'app_gestion_usuarios')]
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('gestiones/gestionUsuarios.html.twig');
+        return $this->render('usuarios/gestionUsuarios.html.twig');
     }
 
     #[Route('/mi_perfil', name: 'app_mi_perfil')]
@@ -31,12 +31,12 @@ final class UserController extends AbstractController{
         
         if ($usuarioBD)
         {
-            return $this->render('gestiones/miPerfil.html.twig', [
+            return $this->render('usuarios/miPerfil.html.twig', [
                 'usuario' => $usuario
             ]);
         }
         
-        return $this->render('gestiones/gestionUsuarios.html.twig');
+        return $this->render('usuarios/gestionUsuarios.html.twig');
         
     }
 
@@ -45,7 +45,7 @@ final class UserController extends AbstractController{
     {
         $usuarios = $userRepository->findAll();
         
-        return $this->render('gestiones/listadoUsuarios.html.twig', [
+        return $this->render('usuarios/listadoUsuarios.html.twig', [
             'usuarios' => $usuarios,
         ]);
     }
@@ -53,6 +53,15 @@ final class UserController extends AbstractController{
     #[Route('/nuevo_usuario', name: 'app_nuevo_usuario', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
+        //Si usuario tipo Admin - puede crear usuarios, editar, etc
+        $user = $this->getUser();
+
+        if(!in_array('ROLE_ADMIN', $user->getRoles()))
+        {
+            $this->addFlash('warning', 'No tiene permisos para gestionar usuarios.');
+            return $this->redirectToRoute('app_gestion_usuarios');
+        }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -70,7 +79,7 @@ final class UserController extends AbstractController{
             return $this->redirectToRoute('app_listado_usuarios', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('gestiones/new.html.twig', [
+        return $this->render('usuarios/nuevoUsuario.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -79,6 +88,15 @@ final class UserController extends AbstractController{
     #[Route('/editar_usuario/{id}/', name: 'app_editar_usuario', methods: ['GET', 'POST'])]
     public function editar(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+        //Si usuario tipo Admin - puede crear usuarios, editar, etc
+        $user = $this->getUser();
+
+        if(!in_array('ROLE_ADMIN', $user->getRoles()))
+        {
+            $this->addFlash('warning', 'No tiene permisos para gestionar usuarios.');
+            return $this->redirectToRoute('app_gestion_usuarios');
+        }
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -89,34 +107,11 @@ final class UserController extends AbstractController{
             return $this->redirectToRoute('app_listado_usuarios', [], Response::HTTP_SEE_OTHER);
         }
         
-        return $this->render('gestiones/editarUsuario.html.twig', [
+        return $this->render('usuarios/editarUsuario.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
-
-    // #[Route('/{id}', name: 'app_eliminar_usuario', methods: ['GET','POST'])]
-    // public function eliminar(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    // {
-    //     $token = $request->get('_token');
-
-    //     if (!$this->isCsrfTokenValid('delete'.$user->getId(), $token)) {
-    //         $this->addFlash('danger', 'Token CSRF inválido. No se eliminó el usuario.');
-    //         return $this->redirectToRoute('app_listado_usuarios');
-    //     }
-
-    //     try {
-    //         $entityManager->remove($user);
-    //         $entityManager->flush();
-
-    //         $this->addFlash('warning', 'Usuario eliminado.');
-    //     } catch (\Exception $e) {
-    //         $this->addFlash('danger', 'Error al eliminar el usuario: ' . $e->getMessage());
-    //     }
-
-    //     return $this->redirectToRoute('app_listado_usuarios', [], Response::HTTP_SEE_OTHER);
-    // }
-
 
 
 

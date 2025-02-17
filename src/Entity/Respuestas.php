@@ -20,10 +20,10 @@ class Respuestas
     #[ORM\ManyToOne(inversedBy: 'respuestas')]
     private ?User $usuario = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $valoracion = null;
 
-    #[ORM\Column(length: 500)]
+    #[ORM\Column(length: 500, nullable: true)]
     private ?string $comentario = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

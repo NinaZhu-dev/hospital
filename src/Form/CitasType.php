@@ -5,6 +5,10 @@ namespace App\Form;
 use App\Entity\Citas;
 use App\Entity\Especialidades;
 
+use App\Validator\Telefono;
+use App\Validator\DniNie;
+use App\Validator\Email;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,10 +25,10 @@ class CitasType extends AbstractType
     {
         $builder
             ->add('nombre',  TextType::class, ['attr' => ['class' => 'form-control']])
-            ->add('dni', TextType::class, ['attr' => ['class' => 'form-control']])
+            ->add('dni', TextType::class, ['attr' => ['class' => 'form-control'], 'constraints' => [new DniNie()]])
             ->add('direccion', TextType::class, ['attr' => ['class' => 'form-control']])
-            ->add('telefono', IntegerType::class, ['attr' => ['class' => 'form-control']])
-            ->add('email', TextType::class, ['attr' => ['class' => 'form-control']])
+            ->add('telefono', TextType::class, ['attr' => ['class' => 'form-control'], 'constraints' => [new Telefono()]])
+            ->add('email', TextType::class, ['attr' => ['class' => 'form-control'], 'constraints' => [new Email()]])
             ->add('observaciones', TextType::class, ['attr' => ['class' => 'form-control']])
             ->add('especialidad', EntityType::class, [
                 'class' => Especialidades::class,

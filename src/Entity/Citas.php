@@ -23,8 +23,8 @@ class Citas
     #[ORM\Column(length: 255)]
     private ?string $direccion = null;
 
-    #[ORM\Column]
-    private ?int $telefono = null;
+    #[ORM\Column(length: 9)]
+    private ?string $telefono = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;

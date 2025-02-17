@@ -22,7 +22,7 @@ class BolsaEmpleo
     #[ORM\Column(length: 255)]
     private ?string $direccion = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 9)]
     private ?string $telefono = null;
 
     #[ORM\Column(length: 255)]

@@ -5,6 +5,10 @@ namespace App\Form;
 use App\Entity\BolsaEmpleo;
 use App\Entity\PuestoTrabajo;
 
+use App\Validator\Telefono;
+use App\Validator\DniNie;
+use App\Validator\Email;
+
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,11 +23,11 @@ class BolsaEmpleoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dni', TextType::class, ['attr' => ['class' => 'form-control']])
+            ->add('dni', TextType::class, ['attr' => ['class' => 'form-control'],'constraints' => [new DniNie()]])
             ->add('nombre',  TextType::class, ['attr' => ['class' => 'form-control']])
             ->add('direccion',  TextType::class, ['attr' => ['class' => 'form-control']])
-            ->add('telefono', IntegerType::class, ['attr' => ['class' => 'form-control']])
-            ->add('email',  TextType::class, ['attr' => ['class' => 'form-control']])
+            ->add('telefono', TextType::class, ['attr' => ['class' => 'form-control'], 'constraints' => [new Telefono()]])
+            ->add('email',  TextType::class, ['attr' => ['class' => 'form-control'], 'constraints' => [new Email()]])
             ->add('puesto', EntityType::class, [
                 'class' => PuestoTrabajo::class,
                 'placeholder' => 'Seleccione un puesto de trabajo:',
