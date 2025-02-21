@@ -44,7 +44,7 @@ final class MedicosController extends AbstractController{
             $entityManager->flush();
 
             $this->addFlash('success', 'Médico creado con éxito.');
-            return $this->redirectToRoute('app_medicos_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_listado_medicos', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('medicos/nuevoMedico.html.twig', [
@@ -68,7 +68,7 @@ final class MedicosController extends AbstractController{
             $entityManager->flush();
 
             $this->addFlash('success', 'Médico actualizado con éxito.');
-            return $this->redirectToRoute('app_medicos_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_listado_medicos', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('medicos/editarMedico.html.twig', [

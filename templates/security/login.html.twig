@@ -10,7 +10,7 @@
 
         {% if app.user %}
             <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Cerrar sesión</a>
+                Ya has iniciado sesión como: {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Cerrar sesión</a>
             </div>
         {% endif %}
 
