@@ -34,20 +34,15 @@ final class EncuestasController extends AbstractController{
 
     // Realizar encuesta elegida
     #[Route('/encuestas/{id}', name: 'app_realizar_encuesta')]
-    public function realizarEncuesta(int $id, TipoEncuestaRepository $encuestaRepo, PreguntasRepository $preguntasRepo ): Response
+    public function realizarEncuesta(int $id, TipoEncuestaRepository $encuestaRepo, PreguntasRepository $preguntasRepo, ComprobarPermisos $permiso): Response
     {   
         $encuesta = $encuestaRepo->find($id);
-        
-        //Si usuario tipo Medico - podra hacer la encuesta de medicos, sino solo las otras encuestas
-        $user = $this->getUser();
-        $rolesPermitidos = ['ROLE_MEDICO', 'ROLE_ADMIN'];
 
         if ($encuesta->getId() == 3)  
         {
-            if( empty($user) || !array_intersect($rolesPermitidos, $user->getRoles()))
-            {
-                $this->addFlash('warning', 'No tiene permisos para realizar esta encuesta.');
-                return $this->redirectToRoute('app_encuestas');
+            $permisoDenegado = $permiso->comprobarPermisosMedico();
+            if($permisoDenegado){
+                return $permisoDenegado;
             }
             
         }

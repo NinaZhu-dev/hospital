@@ -34,6 +34,20 @@ class ComprobarPermisos
 
         return null;
     }
+
+    public function comprobarPermisosMedico(): ?RedirectResponse
+    {
+        $user = $this->security->getUser();
+        $rolesPermitidos = ['ROLE_MEDICO', 'ROLE_ADMIN'];
+
+        if (!$user || !array_intersect($rolesPermitidos, $user->getRoles())) {
+            
+            $this->flashBag->add('warning', 'No tiene permisos.');
+            return new RedirectResponse($this->router->generate('app_encuestas'));
+        }
+
+        return null;
+    }
 }
 
 

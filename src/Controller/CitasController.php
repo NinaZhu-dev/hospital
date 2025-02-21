@@ -6,6 +6,8 @@ use App\Entity\Citas;
 use App\Form\CitasType;
 use App\Repository\CitasRepository;
 
+use App\Security\ComprobarPermisos;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,16 +40,11 @@ final class CitasController extends AbstractController{
 
     //Listado citas para gestionar
     #[Route('/listado_citas', name: 'app_listado_citas')]
-    public function listadoCitas(CitasRepository $citasRepository): Response
+    public function listadoCitas(CitasRepository $citasRepository, ComprobarPermisos $permiso): Response
     {
-        //Si usuario tipo Medico - puede gestionar las citas
-        $user = $this->getUser();
-        $rolesPermitidos = ['ROLE_MEDICO', 'ROLE_ADMIN'];
-
-        if (!array_intersect($rolesPermitidos, $user->getRoles())) {
-        
-            $this->addFlash('warning', 'No tiene permisos para gestionar citas medicas.');
-            return $this->redirectToRoute('app_area_privada');
+        $permisoDenegado = $permiso->comprobarPermisosMedico();
+        if($permisoDenegado){
+            return $permisoDenegado;
         }
             
         $citas = $citasRepository->findBy(['gestionada' => false]);
