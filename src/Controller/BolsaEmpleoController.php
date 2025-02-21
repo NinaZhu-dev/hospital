@@ -6,6 +6,8 @@ use App\Entity\BolsaEmpleo;
 use App\Form\BolsaEmpleoType;
 use App\Repository\BolsaEmpleoRepository;
 
+use App\Security\ComprobarPermisos;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,15 +40,11 @@ final class BolsaEmpleoController extends AbstractController{
     
     //listado empleos para gestionar
     #[Route('/listado_empleos', name: 'app_listado_empleos')]
-    public function listadoEmpleo(BolsaEmpleoRepository $BolsaEmpleoRepository): Response
+    public function listadoEmpleo(BolsaEmpleoRepository $BolsaEmpleoRepository, ComprobarPermisos $permiso): Response
     {
-        //Si usuario tipo Administrativo - puede gestionar las solicitudes de trabajo
-        $user = $this->getUser();
-
-        if(!in_array('ROLE_ADMINISTRACION', $user->getRoles()))
-        {
-            $this->addFlash('warning', 'No tiene permisos para gestionar la bolsa de empleos.');
-            return $this->redirectToRoute('app_gestion_usuarios');
+        $permisoDenegado = $permiso->comprobarPermisos();
+        if($permisoDenegado){
+            return $permisoDenegado;
         }
 
         $empleos = $BolsaEmpleoRepository->findAll();

@@ -1,4 +1,4 @@
-{% extends 'comunes/default.html.twig' %}
+{% extends 'comunes/_default.html.twig' %}
 
 {% block contenido %}
 <section class="bg-white py-5">
@@ -21,8 +21,7 @@
                         <td>{{ usuario.email }}</td>
                         <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
                         <td>
-                            <a class="btn btn-light rounded-pill px-3" href="{{ path('app_editar_usuario', {'id': usuario.id}) }}">Editar</a>
-                            {# <a class="btn btn-warning rounded-pill px-3" href="{{ path('app_eliminar_usuario', {'id': usuario.id}) }}">Eliminar</a> #}
+                            <a class="btn btn-warning rounded-pill px-3" href="{{ path('app_editar_usuario', {'id': usuario.id}) }}">Editar</a>
                         </td>
                     </tr>
                 {% else %}
@@ -34,6 +33,6 @@
             </table>
 
     <a class="btn btn-secondary rounded-pill px-5" href="{{ path('app_nuevo_usuario') }}">Nuevo usuario</a>
-    <a class="btn btn-dark rounded-pill px-5" href="/gestion_usuarios">Volver área privada</a>
+    <a class="btn btn-dark rounded-pill px-5" href="/area_privada">Volver área privada</a>
 
 {% endblock %}

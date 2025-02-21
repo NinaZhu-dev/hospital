@@ -42,11 +42,12 @@ final class CitasController extends AbstractController{
     {
         //Si usuario tipo Medico - puede gestionar las citas
         $user = $this->getUser();
+        $rolesPermitidos = ['ROLE_MEDICO', 'ROLE_ADMIN'];
 
-        if(!in_array('ROLE_MEDICO', $user->getRoles()))
-        {
+        if (!array_intersect($rolesPermitidos, $user->getRoles())) {
+        
             $this->addFlash('warning', 'No tiene permisos para gestionar citas medicas.');
-            return $this->redirectToRoute('app_gestion_usuarios');
+            return $this->redirectToRoute('app_area_privada');
         }
             
         $citas = $citasRepository->findBy(['gestionada' => false]);

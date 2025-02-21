@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+
+use App\Security\ComprobarPermisos;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -15,10 +18,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UserController extends AbstractController{
 
-    #[Route('/gestion_usuarios', name: 'app_gestion_usuarios')]
+    #[Route('/area_privada', name: 'app_area_privada')]
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('usuarios/gestionUsuarios.html.twig');
+        return $this->render('usuarios/areaPrivada.html.twig');
     }
 
     #[Route('/mi_perfil', name: 'app_mi_perfil')]
@@ -36,7 +39,7 @@ final class UserController extends AbstractController{
             ]);
         }
         
-        return $this->render('usuarios/gestionUsuarios.html.twig');
+        return $this->render('usuarios/areaPrivada.html.twig');
         
     }
 
@@ -51,15 +54,11 @@ final class UserController extends AbstractController{
     }
 
     #[Route('/nuevo_usuario', name: 'app_nuevo_usuario', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, ComprobarPermisos $permiso): Response
     {
-        //Si usuario tipo Admin - puede crear usuarios, editar, etc
-        $user = $this->getUser();
-
-        if(!in_array('ROLE_ADMIN', $user->getRoles()))
-        {
-            $this->addFlash('warning', 'No tiene permisos para gestionar usuarios.');
-            return $this->redirectToRoute('app_gestion_usuarios');
+        $permisoDenegado = $permiso->comprobarPermisos();
+        if($permisoDenegado){
+            return $permisoDenegado;
         }
 
         $user = new User();
@@ -86,15 +85,11 @@ final class UserController extends AbstractController{
     }
 
     #[Route('/editar_usuario/{id}/', name: 'app_editar_usuario', methods: ['GET', 'POST'])]
-    public function editar(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function editar(Request $request, User $user, EntityManagerInterface $entityManager, ComprobarPermisos $permiso): Response
     {
-        //Si usuario tipo Admin - puede crear usuarios, editar, etc
-        $user = $this->getUser();
-
-        if(!in_array('ROLE_ADMIN', $user->getRoles()))
-        {
-            $this->addFlash('warning', 'No tiene permisos para gestionar usuarios.');
-            return $this->redirectToRoute('app_gestion_usuarios');
+        $permisoDenegado = $permiso->comprobarPermisos();
+        if($permisoDenegado){
+            return $permisoDenegado;
         }
 
         $form = $this->createForm(UserType::class, $user);

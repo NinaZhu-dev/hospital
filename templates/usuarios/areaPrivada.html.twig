@@ -1,4 +1,4 @@
-{% extends 'comunes/default.html.twig' %}
+{% extends 'comunes/_default.html.twig' %}
 
 {% block contenido %}
 <section class="bg-white py-5">
@@ -28,6 +28,10 @@
                     <a href="{{ path('app_nuevo_usuario') }}">
                         <img src="images/nuevo_usuario.png" alt="nuevo_usuario" class="w-25">
                         <h4 class="element-title text-capitalize my-3">Crear usuario</h4>
+                    </a>
+                    <a href="{{ path('app_listado_medicos') }}">
+                        <img src="images/gestion_medicos.png" alt="nuevo_usuario" class="w-25">
+                        <h4 class="element-title text-capitalize my-3">Gestión medicos</h4>
                     </a>
                 </div>
                 <div class="py-5 d-flex justify-content-center gap-3">

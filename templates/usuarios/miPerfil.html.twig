@@ -1,4 +1,4 @@
-{% extends 'comunes/default.html.twig' %}
+{% extends 'comunes/_default.html.twig' %}
 
 {% block contenido %}
 <section class="bg-white py-5">
@@ -26,5 +26,5 @@
                 </tbody>
             </table>
             <a class="btn btn-secondary rounded-pill px-3" href="{{ path('app_editar_usuario', {'id': usuario.id}) }}">Editar</a>
-    <a class="btn btn-dark rounded-pill px-5" href="/gestion_usuarios">Volver área privada</a>
+    <a class="btn btn-dark rounded-pill px-5" href="/area_privada">Volver área privada</a>
 {% endblock %}

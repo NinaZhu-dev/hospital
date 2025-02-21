@@ -29,7 +29,7 @@ class DefaultController extends AbstractController
 			[],
 			['orden' => 'ASC']
 		);	
-		return $this->render('comunes/menu.html.twig',[
+		return $this->render('comunes/_menu.html.twig',[
 			'menus' => $menus,
 		]);
 	}
@@ -42,7 +42,7 @@ class DefaultController extends AbstractController
 			[],
 			['fila' => 'ASC', 'columna' => 'ASC']
 		);		
-		return $this->render('comunes/footer.html.twig',[
+		return $this->render('comunes/_footer.html.twig',[
 			'footers' => $footers
 		]);
 	}

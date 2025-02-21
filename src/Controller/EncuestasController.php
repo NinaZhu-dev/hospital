@@ -10,6 +10,8 @@ use App\Repository\TipoEncuestaRepository;
 use App\Repository\PreguntasRepository;
 use App\Repository\RespuestasRepository;
 
+use App\Security\ComprobarPermisos;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +40,11 @@ final class EncuestasController extends AbstractController{
         
         //Si usuario tipo Medico - podra hacer la encuesta de medicos, sino solo las otras encuestas
         $user = $this->getUser();
+        $rolesPermitidos = ['ROLE_MEDICO', 'ROLE_ADMIN'];
 
         if ($encuesta->getId() == 3)  
         {
-            if( empty($user) || !in_array('ROLE_MEDICO', $user->getRoles()))
+            if( empty($user) || !array_intersect($rolesPermitidos, $user->getRoles()))
             {
                 $this->addFlash('warning', 'No tiene permisos para realizar esta encuesta.');
                 return $this->redirectToRoute('app_encuestas');
@@ -118,15 +121,11 @@ final class EncuestasController extends AbstractController{
 
     //Listado encuestas completadas
     #[Route('/listado_encuestas', name: 'app_listado_encuestas')]
-    public function listadoEncuestas(RespuestasRepository $respuestaRepository): Response
+    public function listadoEncuestas(RespuestasRepository $respuestaRepository, ComprobarPermisos $permiso): Response
     {
-        //Si usuario tipo administrativo - puede gestionr las encuestas
-        $user = $this->getUser();
-
-        if(!in_array('ROLE_ADMINISTRACION', $user->getRoles()))
-        {
-            $this->addFlash('warning', 'No tiene permisos para gestionar los resultados de las encuestas.');
-            return $this->redirectToRoute('app_gestion_usuarios');
+        $permisoDenegado = $permiso->comprobarPermisos();
+        if($permisoDenegado){
+            return $permisoDenegado;
         }
 
         $encuestas = $respuestaRepository->resultadoEncuestas();
